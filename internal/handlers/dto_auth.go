@@ -5,7 +5,7 @@ import (
 
 	"github.com/google/uuid"
 
-	"github.com/yourorg/nandi/internal/models"
+	"github.com/Osawejustice/nandi-api/internal/models"
 )
 
 type RegisterRequest struct {

@@ -12,8 +12,8 @@ import (
 
 	"github.com/rs/zerolog"
 
-	"github.com/yourorg/nandi/internal/config"
-	"github.com/yourorg/nandi/internal/models"
+	"github.com/Osawejustice/nandi-api/internal/config"
+	"github.com/Osawejustice/nandi-api/internal/models"
 )
 
 const (

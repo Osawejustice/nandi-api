@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 
-	"github.com/yourorg/nandi/internal/models"
+	"github.com/Osawejustice/nandi-api/internal/models"
 )
 
 const (

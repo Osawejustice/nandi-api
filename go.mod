@@ -1,4 +1,4 @@
-module github.com/yourorg/nandi
+module github.com/Osawejustice/nandi-api
 
 go 1.22
 

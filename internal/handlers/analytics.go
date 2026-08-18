@@ -5,10 +5,10 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/yourorg/nandi/internal/middleware"
-	"github.com/yourorg/nandi/internal/models"
-	"github.com/yourorg/nandi/internal/providers"
-	"github.com/yourorg/nandi/internal/services"
+	"github.com/Osawejustice/nandi-api/internal/middleware"
+	"github.com/Osawejustice/nandi-api/internal/models"
+	"github.com/Osawejustice/nandi-api/internal/providers"
+	"github.com/Osawejustice/nandi-api/internal/services"
 )
 
 type AnalyticsHandler struct {

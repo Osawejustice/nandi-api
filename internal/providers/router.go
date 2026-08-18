@@ -9,9 +9,9 @@ import (
 	"github.com/google/uuid"
 	"github.com/rs/zerolog"
 
-	"github.com/yourorg/nandi/internal/config"
-	"github.com/yourorg/nandi/internal/models"
-	"github.com/yourorg/nandi/internal/repositories"
+	"github.com/Osawejustice/nandi-api/internal/config"
+	"github.com/Osawejustice/nandi-api/internal/models"
+	"github.com/Osawejustice/nandi-api/internal/repositories"
 )
 
 // Router tries providers in configured order and writes a ProviderLog per attempt.

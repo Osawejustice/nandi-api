@@ -27,13 +27,13 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/rs/zerolog"
 
-	"github.com/yourorg/nandi/internal/config"
-	"github.com/yourorg/nandi/internal/database"
-	"github.com/yourorg/nandi/internal/handlers"
-	"github.com/yourorg/nandi/internal/realtime"
-	"github.com/yourorg/nandi/internal/utils"
+	"github.com/Osawejustice/nandi-api/internal/config"
+	"github.com/Osawejustice/nandi-api/internal/database"
+	"github.com/Osawejustice/nandi-api/internal/handlers"
+	"github.com/Osawejustice/nandi-api/internal/realtime"
+	"github.com/Osawejustice/nandi-api/internal/utils"
 
-	_ "github.com/yourorg/nandi/docs"
+	_ "github.com/Osawejustice/nandi-api/docs"
 )
 
 func main() {

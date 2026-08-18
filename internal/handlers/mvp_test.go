@@ -15,9 +15,9 @@ import (
 	"github.com/google/uuid"
 	"github.com/rs/zerolog"
 
-	"github.com/yourorg/nandi/internal/config"
-	"github.com/yourorg/nandi/internal/database"
-	"github.com/yourorg/nandi/internal/realtime"
+	"github.com/Osawejustice/nandi-api/internal/config"
+	"github.com/Osawejustice/nandi-api/internal/database"
+	"github.com/Osawejustice/nandi-api/internal/realtime"
 )
 
 type envelope map[string]any

@@ -6,7 +6,7 @@ import (
 	"github.com/rs/zerolog"
 	"gorm.io/gorm"
 
-	"github.com/yourorg/nandi/internal/models"
+	"github.com/Osawejustice/nandi-api/internal/models"
 )
 
 // AutoMigrate applies GORM schema updates, then adds partial unique indexes

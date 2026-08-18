@@ -12,7 +12,7 @@ import (
 
 	"github.com/rs/zerolog"
 
-	"github.com/yourorg/nandi/internal/config"
+	"github.com/Osawejustice/nandi-api/internal/config"
 )
 
 // OpenAICompatible talks to Groq, OpenAI, or any /chat/completions endpoint.

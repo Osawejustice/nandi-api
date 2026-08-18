@@ -7,9 +7,9 @@ import (
 	"github.com/gorilla/websocket"
 	"github.com/rs/zerolog"
 
-	"github.com/yourorg/nandi/internal/models"
-	"github.com/yourorg/nandi/internal/realtime"
-	"github.com/yourorg/nandi/internal/services"
+	"github.com/Osawejustice/nandi-api/internal/models"
+	"github.com/Osawejustice/nandi-api/internal/realtime"
+	"github.com/Osawejustice/nandi-api/internal/services"
 )
 
 var upgrader = websocket.Upgrader{

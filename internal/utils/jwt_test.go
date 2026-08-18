@@ -6,7 +6,7 @@ import (
 
 	"github.com/google/uuid"
 
-	"github.com/yourorg/nandi/internal/config"
+	"github.com/Osawejustice/nandi-api/internal/config"
 )
 
 func TestJWTIssueAndParse(t *testing.T) {

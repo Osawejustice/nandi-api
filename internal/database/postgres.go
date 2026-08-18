@@ -9,7 +9,7 @@ import (
 	"gorm.io/gorm"
 	gormlogger "gorm.io/gorm/logger"
 
-	"github.com/yourorg/nandi/internal/config"
+	"github.com/Osawejustice/nandi-api/internal/config"
 )
 
 // NewPostgres opens a GORM connection to PostgreSQL. No models are registered yet.

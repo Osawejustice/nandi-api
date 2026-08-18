@@ -11,9 +11,9 @@ import (
 	"github.com/rs/zerolog"
 	"gorm.io/gorm"
 
-	"github.com/yourorg/nandi/internal/models"
-	"github.com/yourorg/nandi/internal/repositories"
-	"github.com/yourorg/nandi/internal/utils"
+	"github.com/Osawejustice/nandi-api/internal/models"
+	"github.com/Osawejustice/nandi-api/internal/repositories"
+	"github.com/Osawejustice/nandi-api/internal/utils"
 )
 
 type RegisterInput struct {

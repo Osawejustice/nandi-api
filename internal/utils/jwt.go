@@ -8,7 +8,7 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"
 
-	"github.com/yourorg/nandi/internal/config"
+	"github.com/Osawejustice/nandi-api/internal/config"
 )
 
 const (

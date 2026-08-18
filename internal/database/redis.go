@@ -8,10 +8,10 @@ import (
 	"github.com/redis/go-redis/v9"
 	"github.com/rs/zerolog"
 
-	"github.com/yourorg/nandi/internal/config"
+	"github.com/Osawejustice/nandi-api/internal/config"
 )
 
-// NewRedis opens a Redis client intended for later Pub/Sub use.
+// NewRedis opens a Redis client used for Pub/Sub fan-out and presence.
 func NewRedis(cfg config.RedisConfig, log zerolog.Logger) (*redis.Client, error) {
 	client := redis.NewClient(&redis.Options{
 		Addr:         cfg.Addr,

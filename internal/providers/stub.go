@@ -6,7 +6,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/rs/zerolog"
 
-	"github.com/yourorg/nandi/internal/models"
+	"github.com/Osawejustice/nandi-api/internal/models"
 )
 
 // StubProvider is the local/demo failover. It never talks to a network.

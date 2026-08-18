@@ -5,8 +5,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/yourorg/nandi/internal/middleware"
-	"github.com/yourorg/nandi/internal/services"
+	"github.com/Osawejustice/nandi-api/internal/middleware"
+	"github.com/Osawejustice/nandi-api/internal/services"
 )
 
 type AuthHandler struct {
