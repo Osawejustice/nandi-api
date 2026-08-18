@@ -11,3 +11,20 @@ coverage.*
 .vscode/
 *.swp
 vendor/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Build artifacts
+bin/
+dist/
+build/
+
+# Logs
+*.log
+
+# Temporary files
+tmp/
+temp/

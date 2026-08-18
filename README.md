@@ -76,3 +76,4 @@ The API starts even if Postgres or Redis is down (it logs a warning). Bring comp
 - Structured logging, request IDs, graceful shutdown, and `/health` stay on from day 1.
 - Swagger annotations stay in sync with handlers.
 - Config is environment-based only. No secrets in code.
+# nandi-api
