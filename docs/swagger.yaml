@@ -1,10 +1,448 @@
 basePath: /
 definitions:
+  handlers.APIKeyCreatedData:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: string
+      key:
+        type: string
+      key_prefix:
+        type: string
+      last_used_at:
+        type: string
+      name:
+        type: string
+      role:
+        type: string
+    type: object
+  handlers.APIKeyDTO:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: string
+      key_prefix:
+        type: string
+      last_used_at:
+        type: string
+      name:
+        type: string
+      role:
+        type: string
+    type: object
+  handlers.AgentStatusRequest:
+    properties:
+      status:
+        example: online
+        type: string
+    required:
+    - status
+    type: object
+  handlers.AuthData:
+    properties:
+      access_token:
+        type: string
+      expires_in:
+        example: 900
+        type: integer
+      refresh_token:
+        type: string
+      tenant:
+        $ref: '#/definitions/handlers.TenantDTO'
+      token_type:
+        example: Bearer
+        type: string
+      user:
+        $ref: '#/definitions/handlers.UserDTO'
+    type: object
+  handlers.ContactDTO:
+    properties:
+      created_at:
+        type: string
+      email:
+        type: string
+      id:
+        type: string
+      metadata:
+        $ref: '#/definitions/models.JSONMap'
+      name:
+        type: string
+      phone:
+        type: string
+      tags:
+        items:
+          type: string
+        type: array
+      tenant_id:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  handlers.ContactRequest:
+    properties:
+      email:
+        example: ada@example.com
+        type: string
+      metadata:
+        $ref: '#/definitions/models.JSONMap'
+      name:
+        example: Ada Lovelace
+        type: string
+      phone:
+        example: "+254700000001"
+        type: string
+      tags:
+        items:
+          type: string
+        type: array
+    required:
+    - name
+    - phone
+    type: object
+  handlers.ConversationDTO:
+    properties:
+      assignee:
+        $ref: '#/definitions/handlers.UserDTO'
+      assignee_id:
+        type: string
+      channel:
+        type: string
+      contact:
+        $ref: '#/definitions/handlers.ContactDTO'
+      contact_id:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: string
+      last_message_at:
+        type: string
+      last_message_preview:
+        type: string
+      sentiment_label:
+        type: string
+      sentiment_score:
+        type: number
+      status:
+        type: string
+      summary:
+        type: string
+      tenant_id:
+        type: string
+      unread_count:
+        type: integer
+      updated_at:
+        type: string
+    type: object
+  handlers.ConversationDetailDTO:
+    properties:
+      conversation:
+        $ref: '#/definitions/handlers.ConversationDTO'
+      messages:
+        items:
+          $ref: '#/definitions/handlers.MessageDTO'
+        type: array
+    type: object
+  handlers.CreateAPIKeyRequest:
+    properties:
+      name:
+        example: Billing worker
+        maxLength: 120
+        minLength: 1
+        type: string
+      role:
+        example: admin
+        type: string
+    required:
+    - name
+    type: object
+  handlers.CreateCampaignRequest:
+    properties:
+      channel:
+        example: sms
+        type: string
+      message_template:
+        example: Hello from Nandi
+        type: string
+      name:
+        example: August promo
+        type: string
+      scheduled_at:
+        type: string
+      tag:
+        example: vip
+        type: string
+    required:
+    - message_template
+    - name
+    type: object
+  handlers.CreateUserRequest:
+    properties:
+      email:
+        example: amina@acme.com
+        type: string
+      name:
+        example: Amina Agent
+        type: string
+      password:
+        example: changeme1
+        maxLength: 72
+        minLength: 8
+        type: string
+      role:
+        example: agent
+        type: string
+    required:
+    - email
+    - name
+    - password
+    type: object
+  handlers.ErrorBody:
+    properties:
+      error:
+        $ref: '#/definitions/handlers.ErrorDetail'
+    type: object
+  handlers.ErrorDetail:
+    properties:
+      code:
+        example: validation_error
+        type: string
+      details:
+        additionalProperties:
+          type: string
+        type: object
+      message:
+        example: invalid request
+        type: string
+      request_id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      tenants: {}
+    type: object
   handlers.HealthResponse:
     properties:
       status:
         example: ok
         type: string
+    type: object
+  handlers.LoginRequest:
+    properties:
+      email:
+        example: jane@acme.com
+        type: string
+      password:
+        example: changeme1
+        type: string
+      tenant_slug:
+        example: acme-ltd
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  handlers.LogoutRequest:
+    properties:
+      refresh_token:
+        type: string
+    type: object
+  handlers.MeData:
+    properties:
+      auth_type:
+        type: string
+      role:
+        type: string
+      tenant:
+        $ref: '#/definitions/handlers.TenantDTO'
+      user:
+        $ref: '#/definitions/handlers.UserDTO'
+    type: object
+  handlers.MessageDTO:
+    properties:
+      body:
+        type: string
+      channel:
+        type: string
+      contact_id:
+        type: string
+      conversation_id:
+        type: string
+      created_at:
+        type: string
+      direction:
+        type: string
+      id:
+        type: string
+      metadata:
+        $ref: '#/definitions/models.JSONMap'
+      provider:
+        type: string
+      provider_message_id:
+        type: string
+      sender_id:
+        type: string
+      sentiment_label:
+        type: string
+      sentiment_score:
+        type: number
+      status:
+        type: string
+    type: object
+  handlers.PatchContactRequest:
+    properties:
+      email:
+        type: string
+      metadata:
+        $ref: '#/definitions/models.JSONMap'
+      name:
+        type: string
+      phone:
+        type: string
+      tags:
+        items:
+          type: string
+        type: array
+    type: object
+  handlers.PatchConversationRequest:
+    properties:
+      assignee_id:
+        type: string
+      status:
+        example: resolved
+        type: string
+    type: object
+  handlers.RefreshRequest:
+    properties:
+      refresh_token:
+        type: string
+    required:
+    - refresh_token
+    type: object
+  handlers.RegisterRequest:
+    properties:
+      email:
+        example: jane@acme.com
+        type: string
+      name:
+        example: Jane Doe
+        maxLength: 120
+        minLength: 1
+        type: string
+      organization:
+        example: Acme Ltd
+        maxLength: 120
+        minLength: 2
+        type: string
+      password:
+        example: changeme1
+        maxLength: 72
+        minLength: 8
+        type: string
+    required:
+    - email
+    - name
+    - organization
+    - password
+    type: object
+  handlers.ReplyRequest:
+    properties:
+      body:
+        example: Thanks for reaching out.
+        type: string
+    required:
+    - body
+    type: object
+  handlers.SettingsRequest:
+    properties:
+      feature_flags:
+        $ref: '#/definitions/models.JSONMap'
+      preferences:
+        $ref: '#/definitions/models.JSONMap'
+    type: object
+  handlers.SimulateInboundRequest:
+    properties:
+      body:
+        example: Hello, I need help
+        type: string
+      channel:
+        example: sms
+        type: string
+      name:
+        example: Customer
+        type: string
+      phone:
+        example: "+254700000001"
+        type: string
+    required:
+    - body
+    - phone
+    type: object
+  handlers.SummaryData:
+    properties:
+      summary:
+        type: string
+    type: object
+  handlers.TenantDTO:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      slug:
+        type: string
+      status:
+        type: string
+    type: object
+  handlers.UserDTO:
+    properties:
+      agent_status:
+        type: string
+      created_at:
+        type: string
+      email:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      role:
+        type: string
+      tenant_id:
+        type: string
+    type: object
+  models.JSONMap:
+    additionalProperties: {}
+    type: object
+  repositories.AgentMetric:
+    properties:
+      replies:
+        type: integer
+      user_id:
+        type: string
+    type: object
+  services.Overview:
+    properties:
+      agent_replies_last_7_days:
+        items:
+          $ref: '#/definitions/repositories.AgentMetric'
+        type: array
+      conversations_by_channel:
+        additionalProperties:
+          format: int64
+          type: integer
+        type: object
+      conversations_by_status:
+        additionalProperties:
+          format: int64
+          type: integer
+        type: object
+      messages_last_7_days:
+        type: integer
+      messages_last_30_days:
+        type: integer
     type: object
 host: localhost:8080
 info:
@@ -13,6 +451,767 @@ info:
   title: Nandi API
   version: "1.0"
 paths:
+  /api/v1/agents:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: List agents
+      tags:
+      - agents
+  /api/v1/agents/me/status:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Status
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.AgentStatusRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Set my agent status
+      tags:
+      - agents
+  /api/v1/analytics/overview:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              $ref: '#/definitions/services.Overview'
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Analytics overview
+      tags:
+      - analytics
+  /api/v1/api-keys:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              items:
+                $ref: '#/definitions/handlers.APIKeyDTO'
+              type: array
+            type: object
+      security:
+      - BearerAuth: []
+      summary: List API keys
+      tags:
+      - api-keys
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Key
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.CreateAPIKeyRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties:
+              $ref: '#/definitions/handlers.APIKeyCreatedData'
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Create API key
+      tags:
+      - api-keys
+  /api/v1/api-keys/{id}:
+    delete:
+      parameters:
+      - description: API key ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Revoke API key
+      tags:
+      - api-keys
+  /api/v1/auth/login:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Credentials
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              $ref: '#/definitions/handlers.AuthData'
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/handlers.ErrorBody'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/handlers.ErrorBody'
+      summary: Login
+      tags:
+      - auth
+  /api/v1/auth/logout:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Refresh token
+        in: body
+        name: body
+        schema:
+          $ref: '#/definitions/handlers.LogoutRequest'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+      summary: Logout
+      tags:
+      - auth
+  /api/v1/auth/refresh:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Refresh token
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.RefreshRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              $ref: '#/definitions/handlers.AuthData'
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/handlers.ErrorBody'
+      summary: Refresh tokens
+      tags:
+      - auth
+  /api/v1/auth/register:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Registration
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties:
+              $ref: '#/definitions/handlers.AuthData'
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.ErrorBody'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/handlers.ErrorBody'
+      summary: Register organization
+      tags:
+      - auth
+  /api/v1/campaigns:
+    get:
+      parameters:
+      - description: Page
+        in: query
+        name: page
+        type: integer
+      - description: Page size
+        in: query
+        name: per_page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: List campaigns
+      tags:
+      - campaigns
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Campaign
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.CreateCampaignRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Create campaign
+      tags:
+      - campaigns
+  /api/v1/campaigns/{id}:
+    get:
+      parameters:
+      - description: Campaign ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get campaign
+      tags:
+      - campaigns
+  /api/v1/campaigns/{id}/start:
+    post:
+      parameters:
+      - description: Campaign ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Start campaign
+      tags:
+      - campaigns
+  /api/v1/contacts:
+    get:
+      parameters:
+      - description: Search
+        in: query
+        name: q
+        type: string
+      - description: Tag filter
+        in: query
+        name: tag
+        type: string
+      - description: Page
+        in: query
+        name: page
+        type: integer
+      - description: Page size
+        in: query
+        name: per_page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: List contacts
+      tags:
+      - contacts
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Contact
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.ContactRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties:
+              $ref: '#/definitions/handlers.ContactDTO'
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Create contact
+      tags:
+      - contacts
+  /api/v1/contacts/{id}:
+    delete:
+      parameters:
+      - description: Contact ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+      security:
+      - BearerAuth: []
+      summary: Delete contact
+      tags:
+      - contacts
+    get:
+      parameters:
+      - description: Contact ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              $ref: '#/definitions/handlers.ContactDTO'
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get contact
+      tags:
+      - contacts
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: Contact ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Contact
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.PatchContactRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              $ref: '#/definitions/handlers.ContactDTO'
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Update contact
+      tags:
+      - contacts
+  /api/v1/conversations:
+    get:
+      parameters:
+      - description: open|pending|resolved|closed
+        in: query
+        name: status
+        type: string
+      - description: sms|whatsapp
+        in: query
+        name: channel
+        type: string
+      - description: user id or unassigned
+        in: query
+        name: assignee_id
+        type: string
+      - description: Search
+        in: query
+        name: q
+        type: string
+      - description: Page
+        in: query
+        name: page
+        type: integer
+      - description: Page size
+        in: query
+        name: per_page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: List conversations
+      tags:
+      - conversations
+  /api/v1/conversations/{id}:
+    get:
+      parameters:
+      - description: Conversation ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              $ref: '#/definitions/handlers.ConversationDetailDTO'
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get conversation
+      tags:
+      - conversations
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: Conversation ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Patch
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.PatchConversationRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              $ref: '#/definitions/handlers.ConversationDTO'
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Update conversation
+      tags:
+      - conversations
+  /api/v1/conversations/{id}/messages:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Conversation ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Message
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.ReplyRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties:
+              $ref: '#/definitions/handlers.MessageDTO'
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Reply in conversation
+      tags:
+      - conversations
+  /api/v1/conversations/{id}/summary:
+    post:
+      parameters:
+      - description: Conversation ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              $ref: '#/definitions/handlers.SummaryData'
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Summarize conversation
+      tags:
+      - conversations
+  /api/v1/dev/inbound:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Inbound
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.SimulateInboundRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Simulate inbound message
+      tags:
+      - dev
+  /api/v1/me:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              $ref: '#/definitions/handlers.MeData'
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/handlers.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Current session
+      tags:
+      - auth
+  /api/v1/settings:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get tenant settings
+      tags:
+      - settings
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Settings
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.SettingsRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Update tenant settings
+      tags:
+      - settings
+  /api/v1/users:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: User
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties:
+              $ref: '#/definitions/handlers.UserDTO'
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Create user
+      tags:
+      - users
+  /api/v1/webhooks/{tenant_slug}/sms/africastalking:
+    post:
+      consumes:
+      - multipart/form-data
+      - application/x-www-form-urlencoded
+      parameters:
+      - description: Tenant slug
+        in: path
+        name: tenant_slug
+        required: true
+        type: string
+      - description: Sender
+        in: formData
+        name: from
+        required: true
+        type: string
+      - description: Body
+        in: formData
+        name: text
+        required: true
+        type: string
+      - description: Provider message id
+        in: formData
+        name: id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Africa's Talking inbound webhook
+      tags:
+      - webhooks
+  /api/v1/webhooks/{tenant_slug}/whatsapp/evolution:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Tenant slug
+        in: path
+        name: tenant_slug
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Evolution WhatsApp webhook
+      tags:
+      - webhooks
+  /api/v1/ws:
+    get:
+      parameters:
+      - description: JWT access token
+        in: query
+        name: access_token
+        type: string
+      responses:
+        "101":
+          description: Switching Protocols
+      summary: WebSocket (pass access_token query or Bearer)
+      tags:
+      - realtime
   /health:
     get:
       description: Returns service health status
@@ -28,4 +1227,14 @@ paths:
       - health
 schemes:
 - http
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: X-API-Key
+    type: apiKey
+  BearerAuth:
+    description: Type "Bearer" followed by a space and the access token.
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

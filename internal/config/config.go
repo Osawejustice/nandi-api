@@ -11,12 +11,18 @@ import (
 
 // Config is the process-wide configuration loaded from .env and the environment.
 type Config struct {
-	App      AppConfig
-	Server   ServerConfig
-	Log      LogConfig
-	Database DatabaseConfig
-	Redis    RedisConfig
-	JWT      JWTConfig
+	App       AppConfig
+	Server    ServerConfig
+	Log       LogConfig
+	Database  DatabaseConfig
+	Redis     RedisConfig
+	JWT       JWTConfig
+	CORS      CORSConfig
+	AI        AIConfig
+	AT        AfricaTalkingConfig
+	Evolution EvolutionConfig
+	Provider  ProviderConfig
+	Webhook   WebhookConfig
 }
 
 type AppConfig struct {
@@ -69,6 +75,41 @@ type JWTConfig struct {
 	RefreshTTL time.Duration
 }
 
+type CORSConfig struct {
+	Origins []string
+}
+
+type AIConfig struct {
+	Provider string
+	APIKey   string
+	Model    string
+	BaseURL  string
+}
+
+type AfricaTalkingConfig struct {
+	Username string
+	APIKey   string
+	SenderID string
+	Sandbox  bool
+}
+
+type EvolutionConfig struct {
+	BaseURL  string
+	APIKey   string
+	Instance string
+}
+
+type ProviderConfig struct {
+	PrimarySMS       string
+	FailoverSMS      string
+	PrimaryWhatsApp  string
+	FailoverWhatsApp string
+}
+
+type WebhookConfig struct {
+	Secret string
+}
+
 // Load reads optional .env files, then overlays environment variables via Viper.
 func Load() (*Config, error) {
 	_ = godotenv.Load(".env")
@@ -110,6 +151,35 @@ func Load() (*Config, error) {
 			AccessTTL:  v.GetDuration("JWT_ACCESS_TTL"),
 			RefreshTTL: v.GetDuration("JWT_REFRESH_TTL"),
 		},
+		CORS: CORSConfig{
+			Origins: splitCSV(v.GetString("CORS_ALLOWED_ORIGINS")),
+		},
+		AI: AIConfig{
+			Provider: v.GetString("AI_PROVIDER"),
+			APIKey:   v.GetString("AI_API_KEY"),
+			Model:    v.GetString("AI_MODEL"),
+			BaseURL:  v.GetString("AI_BASE_URL"),
+		},
+		AT: AfricaTalkingConfig{
+			Username: v.GetString("AT_USERNAME"),
+			APIKey:   v.GetString("AT_API_KEY"),
+			SenderID: v.GetString("AT_SENDER_ID"),
+			Sandbox:  v.GetBool("AT_SANDBOX"),
+		},
+		Evolution: EvolutionConfig{
+			BaseURL:  v.GetString("EVOLUTION_BASE_URL"),
+			APIKey:   v.GetString("EVOLUTION_API_KEY"),
+			Instance: v.GetString("EVOLUTION_INSTANCE"),
+		},
+		Provider: ProviderConfig{
+			PrimarySMS:       v.GetString("PROVIDER_PRIMARY_SMS"),
+			FailoverSMS:      v.GetString("PROVIDER_FAILOVER_SMS"),
+			PrimaryWhatsApp:  v.GetString("PROVIDER_PRIMARY_WHATSAPP"),
+			FailoverWhatsApp: v.GetString("PROVIDER_FAILOVER_WHATSAPP"),
+		},
+		Webhook: WebhookConfig{
+			Secret: v.GetString("WEBHOOK_SECRET"),
+		},
 	}
 
 	if cfg.Server.Port == "" {
@@ -147,6 +217,30 @@ func setDefaults(v *viper.Viper) {
 	v.SetDefault("JWT_SECRET", "change-me-in-production")
 	v.SetDefault("JWT_ACCESS_TTL", "15m")
 	v.SetDefault("JWT_REFRESH_TTL", "168h")
+
+	v.SetDefault("CORS_ALLOWED_ORIGINS", "http://localhost:3000")
+
+	v.SetDefault("AI_PROVIDER", "groq")
+	v.SetDefault("AI_MODEL", "llama-3.1-8b-instant")
+	v.SetDefault("AI_BASE_URL", "https://api.groq.com/openai/v1")
+
+	v.SetDefault("AT_SANDBOX", true)
+
+	v.SetDefault("PROVIDER_PRIMARY_SMS", "africastalking")
+	v.SetDefault("PROVIDER_FAILOVER_SMS", "stub")
+	v.SetDefault("PROVIDER_PRIMARY_WHATSAPP", "evolution")
+	v.SetDefault("PROVIDER_FAILOVER_WHATSAPP", "stub")
+}
+
+func splitCSV(raw string) []string {
+	parts := strings.Split(raw, ",")
+	out := make([]string, 0, len(parts))
+	for _, p := range parts {
+		if s := strings.TrimSpace(p); s != "" {
+			out = append(out, s)
+		}
+	}
+	return out
 }
 
 func firstNonEmpty(values ...string) string {

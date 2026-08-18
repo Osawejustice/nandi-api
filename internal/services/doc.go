@@ -1,2 +1,2 @@
-// Package services will hold business logic. Added in later prompts.
+// Package services holds tenant-scoped business logic.
 package services

@@ -1,2 +1,2 @@
-// Package repositories will hold data access. Added in later prompts.
+// Package repositories holds tenant-scoped data access.
 package repositories

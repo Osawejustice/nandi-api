@@ -1,2 +1,2 @@
-// Package models will hold GORM domain models. Added in later prompts.
+// Package models holds GORM domain models. Models stay thin; rules live in services.
 package models

@@ -1,45 +1,128 @@
 {
   "info": {
     "name": "Nandi API",
-    "_postman_id": "7c2d8e1a-4b0f-4c9e-9a11-nandi-day1",
-    "description": "Day 1 collection. Import this file into Postman. Auth routes land in Prompt 1.2.",
+    "_postman_id": "7c2d8e1a-4b0f-4c9e-9a11-nandi-mvp",
+    "description": "Nandi MVP collection. Set access_token after register/login.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
       "name": "Health",
+      "request": { "method": "GET", "url": "{{base_url}}/health" }
+    },
+    {
+      "name": "Register",
       "request": {
-        "method": "GET",
-        "header": [],
-        "url": "{{base_url}}/health",
-        "description": "Liveness check. Expect {\"status\":\"ok\"}."
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{base_url}}/api/v1/auth/register",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"organization\": \"Acme Ltd\",\n  \"name\": \"Jane Doe\",\n  \"email\": \"jane@acme.com\",\n  \"password\": \"changeme1\"\n}"
+        }
       }
     },
     {
-      "name": "Swagger UI",
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{base_url}}/api/v1/auth/login",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"jane@acme.com\",\n  \"password\": \"changeme1\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Me",
       "request": {
         "method": "GET",
-        "header": [],
-        "url": "{{base_url}}/swagger/index.html"
+        "header": [{ "key": "Authorization", "value": "Bearer {{access_token}}" }],
+        "url": "{{base_url}}/api/v1/auth/me"
+      }
+    },
+    {
+      "name": "Create contact",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{access_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": "{{base_url}}/api/v1/contacts",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Ada Lovelace\",\n  \"phone\": \"+254700000001\",\n  \"tags\": [\"vip\"]\n}"
+        }
+      }
+    },
+    {
+      "name": "Simulate inbound",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{access_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": "{{base_url}}/api/v1/dev/inbound",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"phone\": \"+254700000099\",\n  \"name\": \"Customer\",\n  \"body\": \"Hello, I need help\",\n  \"channel\": \"sms\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Africa's Talking webhook",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/x-www-form-urlencoded" }],
+        "url": "{{base_url}}/api/v1/webhooks/{{tenant_slug}}/sms/africastalking",
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            { "key": "from", "value": "+254711111111" },
+            { "key": "text", "value": "Need help" },
+            { "key": "id", "value": "at-demo-1" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "List conversations",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{access_token}}" }],
+        "url": "{{base_url}}/api/v1/conversations?status=open"
+      }
+    },
+    {
+      "name": "Reply",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{access_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": "{{base_url}}/api/v1/conversations/{{conversation_id}}/messages",
+        "body": { "mode": "raw", "raw": "{\n  \"body\": \"Thanks for reaching out.\"\n}" }
+      }
+    },
+    {
+      "name": "Analytics overview",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{access_token}}" }],
+        "url": "{{base_url}}/api/v1/analytics/overview"
       }
     }
   ],
   "variable": [
-    {
-      "key": "base_url",
-      "value": "http://localhost:8080"
-    },
-    {
-      "key": "access_token",
-      "value": ""
-    },
-    {
-      "key": "refresh_token",
-      "value": ""
-    },
-    {
-      "key": "tenant_id",
-      "value": ""
-    }
+    { "key": "base_url", "value": "http://localhost:8080" },
+    { "key": "access_token", "value": "" },
+    { "key": "refresh_token", "value": "" },
+    { "key": "tenant_id", "value": "" },
+    { "key": "tenant_slug", "value": "acme-ltd" },
+    { "key": "conversation_id", "value": "" }
   ]
 }
