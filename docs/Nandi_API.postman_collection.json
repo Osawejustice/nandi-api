@@ -2,16 +2,33 @@
   "info": {
     "name": "Nandi API",
     "_postman_id": "7c2d8e1a-4b0f-4c9e-9a11-nandi-mvp",
-    "description": "Nandi MVP collection. Set access_token after register/login.",
+    "description": "Import this file, send Register, then click through the rest. Tokens save automatically.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
       "name": "Health",
-      "request": { "method": "GET", "url": "{{base_url}}/health" }
+      "request": { "method": "GET", "header": [], "url": "{{base_url}}/health" }
     },
     {
       "name": "Register",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const json = pm.response.json();",
+              "if (json.data && json.data.access_token) {",
+              "  pm.collectionVariables.set('access_token', json.data.access_token);",
+              "  pm.collectionVariables.set('refresh_token', json.data.refresh_token);",
+              "  pm.collectionVariables.set('tenant_id', json.data.tenant.id);",
+              "  pm.collectionVariables.set('tenant_slug', json.data.tenant.slug);",
+              "}"
+            ]
+          }
+        }
+      ],
       "request": {
         "method": "POST",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
@@ -24,6 +41,23 @@
     },
     {
       "name": "Login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const json = pm.response.json();",
+              "if (json.data && json.data.access_token) {",
+              "  pm.collectionVariables.set('access_token', json.data.access_token);",
+              "  pm.collectionVariables.set('refresh_token', json.data.refresh_token);",
+              "  pm.collectionVariables.set('tenant_id', json.data.tenant.id);",
+              "  pm.collectionVariables.set('tenant_slug', json.data.tenant.slug);",
+              "}"
+            ]
+          }
+        }
+      ],
       "request": {
         "method": "POST",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
@@ -59,6 +93,20 @@
     },
     {
       "name": "Simulate inbound",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const json = pm.response.json();",
+              "if (json.data && json.data.conversation) {",
+              "  pm.collectionVariables.set('conversation_id', json.data.conversation.id);",
+              "}"
+            ]
+          }
+        }
+      ],
       "request": {
         "method": "POST",
         "header": [
