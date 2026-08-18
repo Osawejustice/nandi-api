@@ -1,0 +1,45 @@
+{
+  "info": {
+    "name": "Nandi API",
+    "_postman_id": "7c2d8e1a-4b0f-4c9e-9a11-nandi-day1",
+    "description": "Day 1 collection. Import this file into Postman. Auth routes land in Prompt 1.2.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{base_url}}/health",
+        "description": "Liveness check. Expect {\"status\":\"ok\"}."
+      }
+    },
+    {
+      "name": "Swagger UI",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{base_url}}/swagger/index.html"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "access_token",
+      "value": ""
+    },
+    {
+      "key": "refresh_token",
+      "value": ""
+    },
+    {
+      "key": "tenant_id",
+      "value": ""
+    }
+  ]
+}

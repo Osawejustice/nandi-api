@@ -1,0 +1,31 @@
+basePath: /
+definitions:
+  handlers.HealthResponse:
+    properties:
+      status:
+        example: ok
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Multi-tenant Customer Engagement Platform API (Africa-first).
+  title: Nandi API
+  version: "1.0"
+paths:
+  /health:
+    get:
+      description: Returns service health status
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.HealthResponse'
+      summary: Health check
+      tags:
+      - health
+schemes:
+- http
+swagger: "2.0"
